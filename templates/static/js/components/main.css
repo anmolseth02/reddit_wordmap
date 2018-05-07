@@ -1,0 +1,17 @@
+.input {
+    width: 30rem;
+    height: 2rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.infoContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+	cursor: pointer;
+	border: 1px solid black;
+	padding: 1rem;
+}
