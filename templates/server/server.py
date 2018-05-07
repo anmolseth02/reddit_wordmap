@@ -23,11 +23,11 @@ def index():
 @FLASK_APP.route("/api/subs", methods=['GET'])
 def getSubreddits():
     orig_submission = reddit.submission(url=request.args.get('link'))
-    subs = [orig_submission.subreddit.display_name]
+    subs = [{'name': orig_submission.subreddit.display_name, 'link': 'https://www.reddit.com/' + orig_submission.permalink}]
 
     for submission in orig_submission.duplicates():
         print(submission.subreddit.display_name)
-        subs.append(submission.subreddit.display_name)
+        subs.append({'name': submission.subreddit.display_name, 'link': 'https://www.reddit.com/' + submission.permalink})
 
     return jsonify(subs)
 

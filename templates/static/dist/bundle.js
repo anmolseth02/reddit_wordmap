@@ -4858,13 +4858,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Sub = function Sub(name) {
+var Sub = function Sub(_ref) {
     var _this = this;
+
+    var name = _ref.name,
+        link = _ref.link;
 
     _classCallCheck(this, Sub);
 
     (0, _mobx.extendObservable)(this, {
         name: name,
+        link: link,
         isChecked: true,
         updateCheck: (0, _mobx.action)('update check', function (isChecked) {
             return _this.isChecked = isChecked;
@@ -4917,8 +4921,8 @@ var RedditStore = function RedditStore() {
                 }
             }).then(function (response) {
                 return response.json();
-            }).then(function (_ref) {
-                var img = _ref.img;
+            }).then(function (_ref2) {
+                var img = _ref2.img;
 
                 _this2.wordmap = img;
                 _this2.isLoading = false;
@@ -4931,8 +4935,8 @@ var redditStore = new RedditStore();
 
 var stores = { redditStore: redditStore };
 
-var Input = function Input(_ref2) {
-    var redditStore = _ref2.redditStore;
+var Input = function Input(_ref3) {
+    var redditStore = _ref3.redditStore;
     return _react2.default.createElement('input', {
         placeholder: 'Reddit article link',
         value: redditStore.URL,
@@ -4945,8 +4949,8 @@ var Input = function Input(_ref2) {
 
 var InputView = exports.InputView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(Input));
 
-var Subs = function Subs(_ref3) {
-    var redditStore = _ref3.redditStore;
+var Subs = function Subs(_ref4) {
+    var redditStore = _ref4.redditStore;
     return _react2.default.createElement(
         'div',
         null,
@@ -4962,8 +4966,15 @@ var Subs = function Subs(_ref3) {
                         return sub.updateCheck(e.target.checked);
                     }
                 }),
-                ' ',
-                sub.name
+                _react2.default.createElement(
+                    'a',
+                    { href: sub.link, target: '_blank' },
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        sub.name
+                    )
+                )
             );
         }) : false
     );
@@ -4971,8 +4982,8 @@ var Subs = function Subs(_ref3) {
 
 var SubsView = exports.SubsView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(Subs));
 
-var SearchButton = function SearchButton(_ref4) {
-    var redditStore = _ref4.redditStore;
+var SearchButton = function SearchButton(_ref5) {
+    var redditStore = _ref5.redditStore;
     return _react2.default.createElement(
         'div',
         { className: _main2.default.button, onClick: redditStore.getSubs },
@@ -4982,8 +4993,8 @@ var SearchButton = function SearchButton(_ref4) {
 
 var SearchButtonView = exports.SearchButtonView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(SearchButton));
 
-var MapButton = function MapButton(_ref5) {
-    var redditStore = _ref5.redditStore;
+var MapButton = function MapButton(_ref6) {
+    var redditStore = _ref6.redditStore;
     return _react2.default.createElement(
         'div',
         { className: _main2.default.button, onClick: redditStore.getWordmap },
@@ -4993,8 +5004,8 @@ var MapButton = function MapButton(_ref5) {
 
 var MapButtonView = exports.MapButtonView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(MapButton));
 
-var Wordmap = function Wordmap(_ref6) {
-    var redditStore = _ref6.redditStore;
+var Wordmap = function Wordmap(_ref7) {
+    var redditStore = _ref7.redditStore;
     return _react2.default.createElement(
         'div',
         { className: _main2.default.wordmap },

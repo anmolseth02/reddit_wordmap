@@ -9,9 +9,10 @@ import _ from 'lodash';
 import 'whatwg-fetch';
 
 class Sub {
-    constructor(name) {
+    constructor({name, link}) {
         extendObservable(this, {
             name,
+            link,
             isChecked: true,
             updateCheck: action('update check', isChecked => this.isChecked = isChecked),
         });
@@ -83,7 +84,8 @@ const Subs = ({redditStore}) => <div>
                         checked = {sub.isChecked}
                         className = {styles.checkbox}
                         onChange = {e => sub.updateCheck(e.target.checked)}
-                    /> {sub.name}
+                    />
+                    <a href = {sub.link} target="_blank" ><span>{sub.name}</span></a>
             </div>) :
             false
     } 
