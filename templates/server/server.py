@@ -22,9 +22,9 @@ def index():
 # First is a get request that takes in a URL string and returns an array of strings
 @FLASK_APP.route("/api/subs", methods=['GET'])
 def getSubreddits():
-    subs = []
-    print(request.args.get('link'))
     orig_submission = reddit.submission(url=request.args.get('link'))
+    subs = [orig_submission.subreddit.display_name]
+
     for submission in orig_submission.duplicates():
         print(submission.subreddit.display_name)
         subs.append(submission.subreddit.display_name)
@@ -36,6 +36,8 @@ word_string = ""
 @FLASK_APP.route("/api/wordmap", methods=['GET'])
 def wordMap():
     orig_submission = reddit.submission(url=request.args.get('link'))
+    subs = request.args.get('subs')[:-1].split(',')
+
     global word_string
     word_string = ""
     print(request.args.get('subs'))
@@ -47,9 +49,14 @@ def wordMap():
             for reply in comment.replies:
                 get_replies(reply)
 
+    if orig_submission.subreddit.display_name in subs:
+            for comment in orig_submission.comments.list():
+                get_replies(comment)
+
     for submission in orig_submission.duplicates():
-        for comment in submission.comments.list():
-            get_replies(comment)
+        if submission.subreddit.display_name in subs:
+            for comment in submission.comments.list():
+                get_replies(comment)
 
     wordcloud = WordCloud(stopwords=STOPWORDS, background_color='white', width=1200, height=1000).generate(word_string)
 

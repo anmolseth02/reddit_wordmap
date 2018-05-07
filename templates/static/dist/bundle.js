@@ -4828,7 +4828,7 @@ var createPath = exports.createPath = function createPath(location) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.WordmapView = exports.ButtonView = exports.SubsView = exports.InputView = undefined;
+exports.WordmapView = exports.MapButtonView = exports.SearchButtonView = exports.SubsView = exports.InputView = undefined;
 
 var _react = __webpack_require__(2);
 
@@ -4878,7 +4878,7 @@ var RedditStore = function RedditStore() {
     _classCallCheck(this, RedditStore);
 
     (0, _mobx.extendObservable)(this, {
-        URL: 'https://www.reddit.com/r/news/comments/85osel/deletefacebook_movement_gains_steam_after_50/',
+        URL: '',
         subs: [],
         isLoading: false,
         wordmap: '',
@@ -4900,7 +4900,6 @@ var RedditStore = function RedditStore() {
                     _this2.subs = _lodash2.default.map(subs, function (sub) {
                         return new Sub(sub);
                     });
-                    _this2.getWordmap();
                 }
                 _this2.isLoading = false;
             });
@@ -4908,9 +4907,8 @@ var RedditStore = function RedditStore() {
         getWordmap: (0, _mobx.action)('get wordmap', function () {
             _this2.isLoading = true;
             var subStrings = _lodash2.default.reduce(_this2.subs, function (string, sub) {
-                return string + ',' + sub.name;
+                return sub.isChecked ? '' + string + sub.name + ',' : string;
             }, '');
-
             return fetch('http://localhost:5000/api/wordmap?link=' + encodeURIComponent(_this2.URL) + '&subs=' + encodeURIComponent(subStrings), {
                 method: 'GET',
                 headers: {
@@ -4973,7 +4971,7 @@ var Subs = function Subs(_ref3) {
 
 var SubsView = exports.SubsView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(Subs));
 
-var Button = function Button(_ref4) {
+var SearchButton = function SearchButton(_ref4) {
     var redditStore = _ref4.redditStore;
     return _react2.default.createElement(
         'div',
@@ -4982,10 +4980,21 @@ var Button = function Button(_ref4) {
     );
 };
 
-var ButtonView = exports.ButtonView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(Button));
+var SearchButtonView = exports.SearchButtonView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(SearchButton));
 
-var Wordmap = function Wordmap(_ref5) {
+var MapButton = function MapButton(_ref5) {
     var redditStore = _ref5.redditStore;
+    return _react2.default.createElement(
+        'div',
+        { className: _main2.default.button, onClick: redditStore.getWordmap },
+        'Map'
+    );
+};
+
+var MapButtonView = exports.MapButtonView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(MapButton));
+
+var Wordmap = function Wordmap(_ref6) {
+    var redditStore = _ref6.redditStore;
     return _react2.default.createElement(
         'div',
         { className: _main2.default.wordmap },
@@ -5002,8 +5011,13 @@ var Main = function Main(props) {
         _react2.default.createElement(
             'div',
             { style: { display: 'flex', justifyContent: 'spaceAround', alignItems: 'center', flexDirection: 'column' } },
-            _react2.default.createElement(InputView, null),
-            _react2.default.createElement(ButtonView, null),
+            _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(InputView, null),
+                _react2.default.createElement(SearchButtonView, null),
+                _react2.default.createElement(MapButtonView, null)
+            ),
             _react2.default.createElement(
                 'div',
                 { className: _main2.default.infoContainer },

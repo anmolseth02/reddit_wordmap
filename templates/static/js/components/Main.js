@@ -21,7 +21,7 @@ class Sub {
 class RedditStore {
     constructor() {
         extendObservable(this, {
-            URL: 'https://www.reddit.com/r/news/comments/85osel/deletefacebook_movement_gains_steam_after_50/',
+            URL: '',
             subs: [],
             isLoading: false,
             wordmap: '',
@@ -38,15 +38,13 @@ class RedditStore {
                     .then(subs => {
                         if (subs.length) {
                             this.subs = _.map(subs, sub => new Sub(sub));
-                            this.getWordmap();
                         }
                         this.isLoading = false;
                     });
             }),
             getWordmap: action('get wordmap', () => {
                 this.isLoading = true;
-                let subStrings = _.reduce(this.subs, (string, sub) => `${string},${sub.name}`, '')
-
+                let subStrings = _.reduce(this.subs, (string, sub) => sub.isChecked ? `${string}${sub.name},` : string, '');
                 return fetch(`http://localhost:5000/api/wordmap?link=${encodeURIComponent(this.URL)}&subs=${encodeURIComponent(subStrings)}`, {
                     method: 'GET',
                     headers: {
@@ -93,11 +91,17 @@ const Subs = ({redditStore}) => <div>
 
 export const SubsView = inject('redditStore')(observer(Subs));
 
-const Button = ({redditStore}) => <div className = {styles.button} onClick = {redditStore.getSubs}>
+const SearchButton = ({redditStore}) => <div className = {styles.button} onClick = {redditStore.getSubs}>
     Search
 </div>;
 
-export const ButtonView = inject('redditStore')(observer(Button));
+export const SearchButtonView = inject('redditStore')(observer(SearchButton));
+
+const MapButton = ({redditStore}) => <div className = {styles.button} onClick = {redditStore.getWordmap}>
+    Map
+</div>;
+
+export const MapButtonView = inject('redditStore')(observer(MapButton));
 
 const Wordmap = ({redditStore}) => <div className = {styles.wordmap}>
     <img src = {redditStore.wordmap} />
@@ -108,12 +112,14 @@ export const WordmapView = inject('redditStore')(observer(Wordmap));
 
 const Main = props => <Provider {...stores}>
     <div style = {{display: 'flex', justifyContent: 'spaceAround', alignItems: 'center', flexDirection: 'column'}}>
-        <InputView />
-        <ButtonView />
+        <div>
+            <InputView />
+            <SearchButtonView />
+            <MapButtonView />
+        </div>
         <div className = {styles.infoContainer}>
             <SubsView />
             <WordmapView />
-            
         </div>
     </div>
 </Provider>;
