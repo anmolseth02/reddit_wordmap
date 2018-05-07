@@ -5,6 +5,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import styles from './main.css';
 import { computed, action, extendObservable } from 'mobx';
 import {inject, observer} from 'mobx-react';
+import Loader from 'react-loader-spinner'
 import _ from 'lodash';
 import 'whatwg-fetch';
 
@@ -76,6 +77,7 @@ const Input = ({redditStore}) => <input
 export const InputView = inject('redditStore')(observer(Input));
 
 const Subs = ({redditStore}) => <div>
+    {_.get(redditStore, 'subs.length') ? <div className={styles.subTitle}>Subreddits</div> : false}
     {   
         _.get(redditStore, 'subs.length') ?
             _.map(redditStore.subs, (sub, index) => <div key = {index}>
@@ -111,17 +113,31 @@ const Wordmap = ({redditStore}) => <div className = {styles.wordmap}>
 
 export const WordmapView = inject('redditStore')(observer(Wordmap));
 
+const Load = ({redditStore}) => redditStore.isLoading ?
+    <Loader className = {styles.loader} type="Circles" color="#000000" height={60} width={60}/> :
+    false;
+
+export const LoadView = inject('redditStore')(observer(Load));
+
 
 const Main = props => <Provider {...stores}>
     <div style = {{display: 'flex', justifyContent: 'spaceAround', alignItems: 'center', flexDirection: 'column'}}>
+        <div className = {styles.header}>
+            r/TheSamePage
+        </div>
         <div>
             <InputView />
-            <SearchButtonView />
-            <MapButtonView />
+            <div className = {styles.buttons}>
+                <SearchButtonView />
+                <LoadView />
+                <MapButtonView />
+            </div>
         </div>
         <div className = {styles.infoContainer}>
             <SubsView />
-            <WordmapView />
+            <div className = {styles.mapContainer}>
+                <WordmapView />
+            </div>
         </div>
     </div>
 </Provider>;

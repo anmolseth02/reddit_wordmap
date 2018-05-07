@@ -4828,7 +4828,7 @@ var createPath = exports.createPath = function createPath(location) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.WordmapView = exports.MapButtonView = exports.SearchButtonView = exports.SubsView = exports.InputView = undefined;
+exports.LoadView = exports.WordmapView = exports.MapButtonView = exports.SearchButtonView = exports.SubsView = exports.InputView = undefined;
 
 var _react = __webpack_require__(2);
 
@@ -4847,6 +4847,10 @@ var _main = __webpack_require__(39);
 var _main2 = _interopRequireDefault(_main);
 
 var _mobx = __webpack_require__(15);
+
+var _reactLoaderSpinner = __webpack_require__(52);
+
+var _reactLoaderSpinner2 = _interopRequireDefault(_reactLoaderSpinner);
 
 var _lodash = __webpack_require__(45);
 
@@ -4954,6 +4958,11 @@ var Subs = function Subs(_ref4) {
     return _react2.default.createElement(
         'div',
         null,
+        _lodash2.default.get(redditStore, 'subs.length') ? _react2.default.createElement(
+            'div',
+            { className: _main2.default.subTitle },
+            'Subreddits'
+        ) : false,
         _lodash2.default.get(redditStore, 'subs.length') ? _lodash2.default.map(redditStore.subs, function (sub, index) {
             return _react2.default.createElement(
                 'div',
@@ -5015,6 +5024,13 @@ var Wordmap = function Wordmap(_ref7) {
 
 var WordmapView = exports.WordmapView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(Wordmap));
 
+var Load = function Load(_ref8) {
+    var redditStore = _ref8.redditStore;
+    return redditStore.isLoading ? _react2.default.createElement(_reactLoaderSpinner2.default, { className: _main2.default.loader, type: 'Circles', color: '#000000', height: 60, width: 60 }) : false;
+};
+
+var LoadView = exports.LoadView = (0, _mobxReact.inject)('redditStore')((0, _mobxReact.observer)(Load));
+
 var Main = function Main(props) {
     return _react2.default.createElement(
         _mobxReact.Provider,
@@ -5024,16 +5040,30 @@ var Main = function Main(props) {
             { style: { display: 'flex', justifyContent: 'spaceAround', alignItems: 'center', flexDirection: 'column' } },
             _react2.default.createElement(
                 'div',
+                { className: _main2.default.header },
+                'r/TheSamePage'
+            ),
+            _react2.default.createElement(
+                'div',
                 null,
                 _react2.default.createElement(InputView, null),
-                _react2.default.createElement(SearchButtonView, null),
-                _react2.default.createElement(MapButtonView, null)
+                _react2.default.createElement(
+                    'div',
+                    { className: _main2.default.buttons },
+                    _react2.default.createElement(SearchButtonView, null),
+                    _react2.default.createElement(LoadView, null),
+                    _react2.default.createElement(MapButtonView, null)
+                )
             ),
             _react2.default.createElement(
                 'div',
                 { className: _main2.default.infoContainer },
                 _react2.default.createElement(SubsView, null),
-                _react2.default.createElement(WordmapView, null)
+                _react2.default.createElement(
+                    'div',
+                    { className: _main2.default.mapContainer },
+                    _react2.default.createElement(WordmapView, null)
+                )
             )
         )
     );
@@ -24128,13 +24158,18 @@ exports = module.exports = __webpack_require__(41)(true);
 
 
 // module
-exports.push([module.i, ".main__input___3QEnV {\n    width: 30rem;\n    height: 2rem;\n    font-size: 1rem;\n    margin-bottom: 1rem;\n}\n\n.main__infoContainer___X5tod {\n    display: flex;\n    justify-content: space-between;\n}\n\n.main__button___3HUKv {\n\tcursor: pointer;\n\tborder: 1px solid black;\n\tpadding: 1rem;\n}", "", {"version":3,"sources":["/Users/LEIBO/Documents/CTSpring2018/TMD/reddit_wordmap/templates/static/js/components/main.css"],"names":[],"mappings":"AAAA;IACI,aAAa;IACb,aAAa;IACb,gBAAgB;IAChB,oBAAoB;CACvB;;AAED;IACI,cAAc;IACd,+BAA+B;CAClC;;AAED;CACC,gBAAgB;CAChB,wBAAwB;CACxB,cAAc;CACd","file":"main.css","sourcesContent":[".input {\n    width: 30rem;\n    height: 2rem;\n    font-size: 1rem;\n    margin-bottom: 1rem;\n}\n\n.infoContainer {\n    display: flex;\n    justify-content: space-between;\n}\n\n.button {\n\tcursor: pointer;\n\tborder: 1px solid black;\n\tpadding: 1rem;\n}"],"sourceRoot":""}]);
+exports.push([module.i, ".main__header___3Q8m4 {\n\tfont-size: 5rem;\n\tpadding-bottom: 2rem;\n}\n\n.main__input___3QEnV {\n    width: 30rem;\n    height: 2rem;\n    font-size: 1rem;\n    margin-bottom: 1rem;\n}\n\n.main__infoContainer___X5tod {\n    display: flex;\n    justify-content: space-between;\n    padding-top: 2rem;\n}\n\n.main__buttons___3zmQP {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tpadding-top: 1rem;\n}\n\n.main__button___3HUKv {\n\tcursor: pointer;\n    border: 1px solid black;\n    padding: 1rem;\n    height: 2rem;\n    text-align: center;\n    align-items: center;\n    display: flex;\n    width: 4rem;\n    justify-content: center;\n}\n\n.main__loader___Mwhc4 {\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n.main__subTitle___1h8jt {\n\tfont-size: 2rem;\n\ttext-decoration: underline;\n\tfont-weight: bold;\n}\n\n.main__mapContainer___3CjFD {\n\theight: 40rem;\n\twidth: 30.8125rem;\n}\n", "", {"version":3,"sources":["/Users/LEIBO/Documents/CTSpring2018/TMD/reddit_wordmap/templates/static/js/components/main.css"],"names":[],"mappings":"AAAA;CACC,gBAAgB;CAChB,qBAAqB;CACrB;;AAED;IACI,aAAa;IACb,aAAa;IACb,gBAAgB;IAChB,oBAAoB;CACvB;;AAED;IACI,cAAc;IACd,+BAA+B;IAC/B,kBAAkB;CACrB;;AAED;CACC,cAAc;CACd,+BAA+B;CAC/B,kBAAkB;CAClB;;AAED;CACC,gBAAgB;IACb,wBAAwB;IACxB,cAAc;IACd,aAAa;IACb,mBAAmB;IACnB,oBAAoB;IACpB,cAAc;IACd,YAAY;IACZ,wBAAwB;CAC3B;;AAED;CACC,cAAc;CACd,wBAAwB;CACxB,oBAAoB;CACpB;;AAED;CACC,gBAAgB;CAChB,2BAA2B;CAC3B,kBAAkB;CAClB;;AAED;CACC,cAAc;CACd,kBAAkB;CAClB","file":"main.css","sourcesContent":[".header {\n\tfont-size: 5rem;\n\tpadding-bottom: 2rem;\n}\n\n.input {\n    width: 30rem;\n    height: 2rem;\n    font-size: 1rem;\n    margin-bottom: 1rem;\n}\n\n.infoContainer {\n    display: flex;\n    justify-content: space-between;\n    padding-top: 2rem;\n}\n\n.buttons {\n\tdisplay: flex;\n\tjustify-content: space-between;\n\tpadding-top: 1rem;\n}\n\n.button {\n\tcursor: pointer;\n    border: 1px solid black;\n    padding: 1rem;\n    height: 2rem;\n    text-align: center;\n    align-items: center;\n    display: flex;\n    width: 4rem;\n    justify-content: center;\n}\n\n.loader {\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n}\n\n.subTitle {\n\tfont-size: 2rem;\n\ttext-decoration: underline;\n\tfont-weight: bold;\n}\n\n.mapContainer {\n\theight: 40rem;\n\twidth: 30.8125rem;\n}\n"],"sourceRoot":""}]);
 
 // exports
 exports.locals = {
+	"header": "main__header___3Q8m4",
 	"input": "main__input___3QEnV",
 	"infoContainer": "main__infoContainer___X5tod",
-	"button": "main__button___3HUKv"
+	"buttons": "main__buttons___3zmQP",
+	"button": "main__button___3HUKv",
+	"loader": "main__loader___Mwhc4",
+	"subTitle": "main__subTitle___1h8jt",
+	"mapContainer": "main__mapContainer___3CjFD"
 };
 
 /***/ }),
@@ -42282,6 +42317,1768 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 47 */,
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (process.env.NODE_ENV !== 'production') {
+  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+    Symbol.for &&
+    Symbol.for('react.element')) ||
+    0xeac7;
+
+  var isValidElement = function(object) {
+    return typeof object === 'object' &&
+      object !== null &&
+      object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(49)(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(50)();
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var emptyFunction = __webpack_require__(1);
+var invariant = __webpack_require__(5);
+var warning = __webpack_require__(6);
+var assign = __webpack_require__(3);
+
+var ReactPropTypesSecret = __webpack_require__(21);
+var checkPropTypes = __webpack_require__(7);
+
+module.exports = function(isValidElement, throwOnDirectAccess) {
+  /* global Symbol */
+  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+  /**
+   * Returns the iterator method function contained on the iterable object.
+   *
+   * Be sure to invoke the function with the iterable as context:
+   *
+   *     var iteratorFn = getIteratorFn(myIterable);
+   *     if (iteratorFn) {
+   *       var iterator = iteratorFn.call(myIterable);
+   *       ...
+   *     }
+   *
+   * @param {?object} maybeIterable
+   * @return {?function}
+   */
+  function getIteratorFn(maybeIterable) {
+    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+    if (typeof iteratorFn === 'function') {
+      return iteratorFn;
+    }
+  }
+
+  /**
+   * Collection of methods that allow declaration and validation of props that are
+   * supplied to React components. Example usage:
+   *
+   *   var Props = require('ReactPropTypes');
+   *   var MyArticle = React.createClass({
+   *     propTypes: {
+   *       // An optional string prop named "description".
+   *       description: Props.string,
+   *
+   *       // A required enum prop named "category".
+   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *
+   *       // A prop named "dialog" that requires an instance of Dialog.
+   *       dialog: Props.instanceOf(Dialog).isRequired
+   *     },
+   *     render: function() { ... }
+   *   });
+   *
+   * A more formal specification of how these methods are used:
+   *
+   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+   *   decl := ReactPropTypes.{type}(.isRequired)?
+   *
+   * Each and every declaration produces a function with the same signature. This
+   * allows the creation of custom validation functions. For example:
+   *
+   *  var MyLink = React.createClass({
+   *    propTypes: {
+   *      // An optional string or URI prop named "href".
+   *      href: function(props, propName, componentName) {
+   *        var propValue = props[propName];
+   *        if (propValue != null && typeof propValue !== 'string' &&
+   *            !(propValue instanceof URI)) {
+   *          return new Error(
+   *            'Expected a string or an URI for ' + propName + ' in ' +
+   *            componentName
+   *          );
+   *        }
+   *      }
+   *    },
+   *    render: function() {...}
+   *  });
+   *
+   * @internal
+   */
+
+  var ANONYMOUS = '<<anonymous>>';
+
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  var ReactPropTypes = {
+    array: createPrimitiveTypeChecker('array'),
+    bool: createPrimitiveTypeChecker('boolean'),
+    func: createPrimitiveTypeChecker('function'),
+    number: createPrimitiveTypeChecker('number'),
+    object: createPrimitiveTypeChecker('object'),
+    string: createPrimitiveTypeChecker('string'),
+    symbol: createPrimitiveTypeChecker('symbol'),
+
+    any: createAnyTypeChecker(),
+    arrayOf: createArrayOfTypeChecker,
+    element: createElementTypeChecker(),
+    instanceOf: createInstanceTypeChecker,
+    node: createNodeChecker(),
+    objectOf: createObjectOfTypeChecker,
+    oneOf: createEnumTypeChecker,
+    oneOfType: createUnionTypeChecker,
+    shape: createShapeTypeChecker,
+    exact: createStrictShapeTypeChecker,
+  };
+
+  /**
+   * inlined Object.is polyfill to avoid requiring consumers ship their own
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+   */
+  /*eslint-disable no-self-compare*/
+  function is(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y;
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y;
+    }
+  }
+  /*eslint-enable no-self-compare*/
+
+  /**
+   * We use an Error-like object for backward compatibility as people may call
+   * PropTypes directly and inspect their output. However, we don't use real
+   * Errors anymore. We don't inspect their stack anyway, and creating them
+   * is prohibitively expensive if they are created too often, such as what
+   * happens in oneOfType() for any type before the one that matched.
+   */
+  function PropTypeError(message) {
+    this.message = message;
+    this.stack = '';
+  }
+  // Make `instanceof Error` still work for returned errors.
+  PropTypeError.prototype = Error.prototype;
+
+  function createChainableTypeChecker(validate) {
+    if (process.env.NODE_ENV !== 'production') {
+      var manualPropTypeCallCache = {};
+      var manualPropTypeWarningCount = 0;
+    }
+    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+      componentName = componentName || ANONYMOUS;
+      propFullName = propFullName || propName;
+
+      if (secret !== ReactPropTypesSecret) {
+        if (throwOnDirectAccess) {
+          // New behavior only for users of `prop-types` package
+          invariant(
+            false,
+            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+            'Use `PropTypes.checkPropTypes()` to call them. ' +
+            'Read more at http://fb.me/use-check-prop-types'
+          );
+        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
+          // Old behavior for people using React.PropTypes
+          var cacheKey = componentName + ':' + propName;
+          if (
+            !manualPropTypeCallCache[cacheKey] &&
+            // Avoid spamming the console because they are often not actionable except for lib authors
+            manualPropTypeWarningCount < 3
+          ) {
+            warning(
+              false,
+              'You are manually calling a React.PropTypes validation ' +
+              'function for the `%s` prop on `%s`. This is deprecated ' +
+              'and will throw in the standalone `prop-types` package. ' +
+              'You may be seeing this warning due to a third-party PropTypes ' +
+              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.',
+              propFullName,
+              componentName
+            );
+            manualPropTypeCallCache[cacheKey] = true;
+            manualPropTypeWarningCount++;
+          }
+        }
+      }
+      if (props[propName] == null) {
+        if (isRequired) {
+          if (props[propName] === null) {
+            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+          }
+          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+        }
+        return null;
+      } else {
+        return validate(props, propName, componentName, location, propFullName);
+      }
+    }
+
+    var chainedCheckType = checkType.bind(null, false);
+    chainedCheckType.isRequired = checkType.bind(null, true);
+
+    return chainedCheckType;
+  }
+
+  function createPrimitiveTypeChecker(expectedType) {
+    function validate(props, propName, componentName, location, propFullName, secret) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== expectedType) {
+        // `propValue` being instance of, say, date/regexp, pass the 'object'
+        // check, but we can offer a more precise error message here rather than
+        // 'of type `object`'.
+        var preciseType = getPreciseType(propValue);
+
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createAnyTypeChecker() {
+    return createChainableTypeChecker(emptyFunction.thatReturnsNull);
+  }
+
+  function createArrayOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+      }
+      var propValue = props[propName];
+      if (!Array.isArray(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+      }
+      for (var i = 0; i < propValue.length; i++) {
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
+        if (error instanceof Error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!isValidElement(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createInstanceTypeChecker(expectedClass) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!(props[propName] instanceof expectedClass)) {
+        var expectedClassName = expectedClass.name || ANONYMOUS;
+        var actualClassName = getClassName(props[propName]);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createEnumTypeChecker(expectedValues) {
+    if (!Array.isArray(expectedValues)) {
+      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOf, expected an instance of array.') : void 0;
+      return emptyFunction.thatReturnsNull;
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      for (var i = 0; i < expectedValues.length; i++) {
+        if (is(propValue, expectedValues[i])) {
+          return null;
+        }
+      }
+
+      var valuesString = JSON.stringify(expectedValues);
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + propValue + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createObjectOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+      }
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+      }
+      for (var key in propValue) {
+        if (propValue.hasOwnProperty(key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+          if (error instanceof Error) {
+            return error;
+          }
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createUnionTypeChecker(arrayOfTypeCheckers) {
+    if (!Array.isArray(arrayOfTypeCheckers)) {
+      process.env.NODE_ENV !== 'production' ? warning(false, 'Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      return emptyFunction.thatReturnsNull;
+    }
+
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        warning(
+          false,
+          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
+          'received %s at index %s.',
+          getPostfixForTypeWarning(checker),
+          i
+        );
+        return emptyFunction.thatReturnsNull;
+      }
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+        var checker = arrayOfTypeCheckers[i];
+        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
+          return null;
+        }
+      }
+
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createNodeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!isNode(props[propName])) {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      for (var key in shapeTypes) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          continue;
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createStrictShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      // We need to check all keys in case some are required but missing from
+      // props.
+      var allKeys = assign({}, props[propName], shapeTypes);
+      for (var key in allKeys) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          return new PropTypeError(
+            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
+            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
+            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+          );
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function isNode(propValue) {
+    switch (typeof propValue) {
+      case 'number':
+      case 'string':
+      case 'undefined':
+        return true;
+      case 'boolean':
+        return !propValue;
+      case 'object':
+        if (Array.isArray(propValue)) {
+          return propValue.every(isNode);
+        }
+        if (propValue === null || isValidElement(propValue)) {
+          return true;
+        }
+
+        var iteratorFn = getIteratorFn(propValue);
+        if (iteratorFn) {
+          var iterator = iteratorFn.call(propValue);
+          var step;
+          if (iteratorFn !== propValue.entries) {
+            while (!(step = iterator.next()).done) {
+              if (!isNode(step.value)) {
+                return false;
+              }
+            }
+          } else {
+            // Iterator will provide entry [k,v] tuples rather than values.
+            while (!(step = iterator.next()).done) {
+              var entry = step.value;
+              if (entry) {
+                if (!isNode(entry[1])) {
+                  return false;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
+
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  function isSymbol(propType, propValue) {
+    // Native Symbol.
+    if (propType === 'symbol') {
+      return true;
+    }
+
+    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+    if (propValue['@@toStringTag'] === 'Symbol') {
+      return true;
+    }
+
+    // Fallback for non-spec compliant Symbols which are polyfilled.
+    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Equivalent of `typeof` but with special handling for array and regexp.
+  function getPropType(propValue) {
+    var propType = typeof propValue;
+    if (Array.isArray(propValue)) {
+      return 'array';
+    }
+    if (propValue instanceof RegExp) {
+      // Old webkits (at least until Android 4.0) return 'function' rather than
+      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+      // passes PropTypes.object.
+      return 'object';
+    }
+    if (isSymbol(propType, propValue)) {
+      return 'symbol';
+    }
+    return propType;
+  }
+
+  // This handles more types than `getPropType`. Only used for error messages.
+  // See `createPrimitiveTypeChecker`.
+  function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
+    var propType = getPropType(propValue);
+    if (propType === 'object') {
+      if (propValue instanceof Date) {
+        return 'date';
+      } else if (propValue instanceof RegExp) {
+        return 'regexp';
+      }
+    }
+    return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
+  }
+
+  // Returns class name of the object, if any.
+  function getClassName(propValue) {
+    if (!propValue.constructor || !propValue.constructor.name) {
+      return ANONYMOUS;
+    }
+    return propValue.constructor.name;
+  }
+
+  ReactPropTypes.checkPropTypes = checkPropTypes;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var emptyFunction = __webpack_require__(1);
+var invariant = __webpack_require__(5);
+var ReactPropTypesSecret = __webpack_require__(21);
+
+module.exports = function() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret) {
+      // It is still safe when called from React.
+      return;
+    }
+    invariant(
+      false,
+      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+      'Use PropTypes.checkPropTypes() to call them. ' +
+      'Read more at http://fb.me/use-check-prop-types'
+    );
+  };
+  shim.isRequired = shim;
+  function getShim() {
+    return shim;
+  };
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+  var ReactPropTypes = {
+    array: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim
+  };
+
+  ReactPropTypes.checkPropTypes = emptyFunction;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+
+/***/ }),
+/* 51 */,
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(53);
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2), __webpack_require__(48), __webpack_require__(54), __webpack_require__(55), __webpack_require__(56), __webpack_require__(57), __webpack_require__(64), __webpack_require__(58), __webpack_require__(59), __webpack_require__(60), __webpack_require__(61), __webpack_require__(62), __webpack_require__(63)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require('react'), require('prop-types'), require('./loading/audio'), require('./loading/ball-triangle'), require('./loading/bars'), require('./loading/circles'), require('./loading/grid'), require('./loading/hearts'), require('./loading/oval'), require('./loading/puff'), require('./loading/rings'), require('./loading/tail-spin'), require('./loading/three-dots'));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react, global.propTypes, global.audio, global.ballTriangle, global.bars, global.circles, global.grid, global.hearts, global.oval, global.puff, global.rings, global.tailSpin, global.threeDots);
+        global.index = mod.exports;
+    }
+})(this, function (exports, _react, _propTypes, _audio, _ballTriangle, _bars, _circles, _grid, _hearts, _oval, _puff, _rings, _tailSpin, _threeDots) {
+    'use strict';
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    var _react2 = _interopRequireDefault(_react);
+
+    var _propTypes2 = _interopRequireDefault(_propTypes);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    var _createClass = function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    }();
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
+
+    var Loader = function (_React$Component) {
+        _inherits(Loader, _React$Component);
+
+        function Loader() {
+            var _ref;
+
+            var _temp, _this, _ret;
+
+            _classCallCheck(this, Loader);
+
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                args[_key] = arguments[_key];
+            }
+
+            return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Loader.__proto__ || Object.getPrototypeOf(Loader)).call.apply(_ref, [this].concat(args))), _this), _this.svg = function (type, visible) {
+                if (type === 'Audio') {
+                    return (0, _audio.audio)(_this.props);
+                } else if (type === 'Ball-Triangle') {
+                    return (0, _ballTriangle.ballTrangle)(_this.props);
+                } else if (type === 'Bars') {
+                    return (0, _bars.bars)(_this.props);
+                } else if (type === 'Circles') {
+                    return (0, _circles.circles)(_this.props);
+                } else if (type === 'Grid') {
+                    return (0, _grid.grid)(_this.props);
+                } else if (type === 'Hearts') {
+                    return (0, _hearts.hearts)(_this.props);
+                } else if (type === 'Oval') {
+                    return (0, _oval.oval)(_this.props);
+                } else if (type === 'Puff') {
+                    return (0, _puff.puff)(_this.props);
+                } else if (type === 'Rings') {
+                    return (0, _rings.rings)(_this.props);
+                } else if (type === 'TailSpin') {
+                    return (0, _tailSpin.tailSpin)(_this.props);
+                } else if (type === 'ThreeDots') {
+                    return (0, _threeDots.threeDots)(_this.props);
+                }
+
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Loading...Please Wait'
+                    ),
+                    _react2.default.createElement(
+                        'small',
+                        null,
+                        _react2.default.createElement(
+                            'i',
+                            null,
+                            'Note:No specfic svg type exist'
+                        )
+                    )
+                );
+            }, _temp), _possibleConstructorReturn(_this, _ret);
+        }
+
+        _createClass(Loader, [{
+            key: 'render',
+            value: function render() {
+                var _props = this.props,
+                    color = _props.color,
+                    type = _props.type,
+                    height = _props.height,
+                    width = _props.width;
+
+                var style = {
+                    fill: color,
+                    height: height,
+                    width: width
+                };
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    this.svg(type)
+                );
+            }
+        }]);
+
+        return Loader;
+    }(_react2.default.Component);
+
+    Loader.propTypes = {
+        color: _propTypes2.default.string,
+        type: _propTypes2.default.string,
+        height: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+        width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+    };
+    Loader.defaultProps = {
+        color: 'blue',
+        type: 'audio',
+        height: 80,
+        width: 80,
+        visible: true
+    };
+    exports.default = Loader;
+});
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.audio = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.audio = audio;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function audio(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { height: svg.height, width: svg.width, fill: svg.color, viewBox: "0 0 55 80", xmlns: "http://www.w3.org/2000/svg" },
+            _react2.default.createElement(
+                "g",
+                { transform: "matrix(1 0 0 -1 0 80)" },
+                _react2.default.createElement(
+                    "rect",
+                    { width: "10", height: "20", rx: "3" },
+                    _react2.default.createElement("animate", { attributeName: "height",
+                        begin: "0s", dur: "4.3s",
+                        values: "20;45;57;80;64;32;66;45;64;23;66;13;64;56;34;34;2;23;76;79;20", calcMode: "linear",
+                        repeatCount: "indefinite" })
+                ),
+                _react2.default.createElement(
+                    "rect",
+                    { x: "15", width: "10", height: "80", rx: "3" },
+                    _react2.default.createElement("animate", { attributeName: "height",
+                        begin: "0s", dur: "2s",
+                        values: "80;55;33;5;75;23;73;33;12;14;60;80", calcMode: "linear",
+                        repeatCount: "indefinite" })
+                ),
+                _react2.default.createElement(
+                    "rect",
+                    { x: "30", width: "10", height: "50", rx: "3" },
+                    _react2.default.createElement("animate", { attributeName: "height",
+                        begin: "0s", dur: "1.4s",
+                        values: "50;34;78;23;56;23;34;76;80;54;21;50", calcMode: "linear",
+                        repeatCount: "indefinite" })
+                ),
+                _react2.default.createElement(
+                    "rect",
+                    { x: "45", width: "10", height: "30", rx: "3" },
+                    _react2.default.createElement("animate", { attributeName: "height",
+                        begin: "0s", dur: "2s",
+                        values: "30;45;13;80;56;72;45;76;34;23;67;30", calcMode: "linear",
+                        repeatCount: "indefinite" })
+                )
+            )
+        );
+    };
+});
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.ballTriangle = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.ballTrangle = ballTrangle;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function ballTrangle(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { height: svg.height, width: svg.width, stroke: svg.color, viewBox: "0 0 57 57", xmlns: "http://www.w3.org/2000/svg" },
+            _react2.default.createElement(
+                "g",
+                { fill: "none", fillRule: "evenodd" },
+                _react2.default.createElement(
+                    "g",
+                    { transform: "translate(1 1)", strokeWidth: "2" },
+                    _react2.default.createElement(
+                        "circle",
+                        { cx: "5", cy: "50", r: "5" },
+                        _react2.default.createElement("animate", { attributeName: "cy",
+                            begin: "0s", dur: "2.2s",
+                            values: "50;5;50;50",
+                            calcMode: "linear",
+                            repeatCount: "indefinite" }),
+                        _react2.default.createElement("animate", { attributeName: "cx",
+                            begin: "0s", dur: "2.2s",
+                            values: "5;27;49;5",
+                            calcMode: "linear",
+                            repeatCount: "indefinite" })
+                    ),
+                    _react2.default.createElement(
+                        "circle",
+                        { cx: "27", cy: "5", r: "5" },
+                        _react2.default.createElement("animate", { attributeName: "cy",
+                            begin: "0s", dur: "2.2s",
+                            from: "5", to: "5",
+                            values: "5;50;50;5",
+                            calcMode: "linear",
+                            repeatCount: "indefinite" }),
+                        _react2.default.createElement("animate", { attributeName: "cx",
+                            begin: "0s", dur: "2.2s",
+                            from: "27", to: "27",
+                            values: "27;49;5;27",
+                            calcMode: "linear",
+                            repeatCount: "indefinite" })
+                    ),
+                    _react2.default.createElement(
+                        "circle",
+                        { cx: "49", cy: "50", r: "5" },
+                        _react2.default.createElement("animate", { attributeName: "cy",
+                            begin: "0s", dur: "2.2s",
+                            values: "50;50;5;50",
+                            calcMode: "linear",
+                            repeatCount: "indefinite" }),
+                        _react2.default.createElement("animate", { attributeName: "cx",
+                            from: "49", to: "49",
+                            begin: "0s", dur: "2.2s",
+                            values: "49;5;27;49",
+                            calcMode: "linear",
+                            repeatCount: "indefinite" })
+                    )
+                )
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.bars = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.bars = bars;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function bars(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.height, height: svg.width, fill: svg.color, viewBox: "0 0 135 140", xmlns: "http://www.w3.org/2000/svg" },
+            _react2.default.createElement(
+                "rect",
+                { y: "10", width: "15", height: "120", rx: "6" },
+                _react2.default.createElement("animate", { attributeName: "height",
+                    begin: "0.5s", dur: "1s",
+                    values: "120;110;100;90;80;70;60;50;40;140;120", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "y",
+                    begin: "0.5s", dur: "1s",
+                    values: "10;15;20;25;30;35;40;45;50;0;10", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "rect",
+                { x: "30", y: "10", width: "15", height: "120", rx: "6" },
+                _react2.default.createElement("animate", { attributeName: "height",
+                    begin: "0.25s", dur: "1s",
+                    values: "120;110;100;90;80;70;60;50;40;140;120", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "y",
+                    begin: "0.25s", dur: "1s",
+                    values: "10;15;20;25;30;35;40;45;50;0;10", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "rect",
+                { x: "60", width: "15", height: "140", rx: "6" },
+                _react2.default.createElement("animate", { attributeName: "height",
+                    begin: "0s", dur: "1s",
+                    values: "120;110;100;90;80;70;60;50;40;140;120", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "y",
+                    begin: "0s", dur: "1s",
+                    values: "10;15;20;25;30;35;40;45;50;0;10", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "rect",
+                { x: "90", y: "10", width: "15", height: "120", rx: "6" },
+                _react2.default.createElement("animate", { attributeName: "height",
+                    begin: "0.25s", dur: "1s",
+                    values: "120;110;100;90;80;70;60;50;40;140;120", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "y",
+                    begin: "0.25s", dur: "1s",
+                    values: "10;15;20;25;30;35;40;45;50;0;10", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "rect",
+                { x: "120", y: "10", width: "15", height: "120", rx: "6" },
+                _react2.default.createElement("animate", { attributeName: "height",
+                    begin: "0.5s", dur: "1s",
+                    values: "120;110;100;90;80;70;60;50;40;140;120", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "y",
+                    begin: "0.5s", dur: "1s",
+                    values: "10;15;20;25;30;35;40;45;50;0;10", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.circles = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.circles = circles;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function circles(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 135 135", xmlns: "http://www.w3.org/2000/svg", fill: svg.color },
+            _react2.default.createElement(
+                "path",
+                { d: "M67.447 58c5.523 0 10-4.477 10-10s-4.477-10-10-10-10 4.477-10 10 4.477 10 10 10zm9.448 9.447c0 5.523 4.477 10 10 10 5.522 0 10-4.477 10-10s-4.478-10-10-10c-5.523 0-10 4.477-10 10zm-9.448 9.448c-5.523 0-10 4.477-10 10 0 5.522 4.477 10 10 10s10-4.478 10-10c0-5.523-4.477-10-10-10zM58 67.447c0-5.523-4.477-10-10-10s-10 4.477-10 10 4.477 10 10 10 10-4.477 10-10z" },
+                _react2.default.createElement("animateTransform", {
+                    attributeName: "transform",
+                    type: "rotate",
+                    from: "0 67 67",
+                    to: "-360 67 67",
+                    dur: "2.5s",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "path",
+                { d: "M28.19 40.31c6.627 0 12-5.374 12-12 0-6.628-5.373-12-12-12-6.628 0-12 5.372-12 12 0 6.626 5.372 12 12 12zm30.72-19.825c4.686 4.687 12.284 4.687 16.97 0 4.686-4.686 4.686-12.284 0-16.97-4.686-4.687-12.284-4.687-16.97 0-4.687 4.686-4.687 12.284 0 16.97zm35.74 7.705c0 6.627 5.37 12 12 12 6.626 0 12-5.373 12-12 0-6.628-5.374-12-12-12-6.63 0-12 5.372-12 12zm19.822 30.72c-4.686 4.686-4.686 12.284 0 16.97 4.687 4.686 12.285 4.686 16.97 0 4.687-4.686 4.687-12.284 0-16.97-4.685-4.687-12.283-4.687-16.97 0zm-7.704 35.74c-6.627 0-12 5.37-12 12 0 6.626 5.373 12 12 12s12-5.374 12-12c0-6.63-5.373-12-12-12zm-30.72 19.822c-4.686-4.686-12.284-4.686-16.97 0-4.686 4.687-4.686 12.285 0 16.97 4.686 4.687 12.284 4.687 16.97 0 4.687-4.685 4.687-12.283 0-16.97zm-35.74-7.704c0-6.627-5.372-12-12-12-6.626 0-12 5.373-12 12s5.374 12 12 12c6.628 0 12-5.373 12-12zm-19.823-30.72c4.687-4.686 4.687-12.284 0-16.97-4.686-4.686-12.284-4.686-16.97 0-4.687 4.686-4.687 12.284 0 16.97 4.686 4.687 12.284 4.687 16.97 0z" },
+                _react2.default.createElement("animateTransform", {
+                    attributeName: "transform",
+                    type: "rotate",
+                    from: "0 67 67",
+                    to: "360 67 67",
+                    dur: "8s",
+                    repeatCount: "indefinite" })
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.hearts = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.hearts = hearts;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function hearts(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 140 64", xmlns: "http://www.w3.org/2000/svg", fill: svg.color },
+            _react2.default.createElement(
+                "path",
+                { d: "M30.262 57.02L7.195 40.723c-5.84-3.976-7.56-12.06-3.842-18.063 3.715-6 11.467-7.65 17.306-3.68l4.52 3.76 2.6-5.274c3.717-6.002 11.47-7.65 17.305-3.68 5.84 3.97 7.56 12.054 3.842 18.062L34.49 56.118c-.897 1.512-2.793 1.915-4.228.9z", attributeName: "fill-opacity", from: "0", to: ".5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "0s", dur: "1.4s",
+                    values: "0.5;1;0.5",
+                    calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "path",
+                { d: "M105.512 56.12l-14.44-24.272c-3.716-6.008-1.996-14.093 3.843-18.062 5.835-3.97 13.588-2.322 17.306 3.68l2.6 5.274 4.52-3.76c5.84-3.97 13.592-2.32 17.307 3.68 3.718 6.003 1.998 14.088-3.842 18.064L109.74 57.02c-1.434 1.014-3.33.61-4.228-.9z", attributeName: "fill-opacity", from: "0", to: ".5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "0.7s", dur: "1.4s",
+                    values: "0.5;1;0.5",
+                    calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement("path", { d: "M67.408 57.834l-23.01-24.98c-5.864-6.15-5.864-16.108 0-22.248 5.86-6.14 15.37-6.14 21.234 0L70 16.168l4.368-5.562c5.863-6.14 15.375-6.14 21.235 0 5.863 6.14 5.863 16.098 0 22.247l-23.007 24.98c-1.43 1.556-3.757 1.556-5.188 0z" })
+        );
+    }
+});
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.oval = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.oval = oval;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function oval(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 38 38", xmlns: "http://www.w3.org/2000/svg", stroke: svg.color },
+            _react2.default.createElement(
+                "g",
+                { fill: "none", fillRule: "evenodd" },
+                _react2.default.createElement(
+                    "g",
+                    { transform: "translate(1 1)", strokeWidth: "2" },
+                    _react2.default.createElement("circle", { strokeOpacity: ".5", cx: "18", cy: "18", r: "18" }),
+                    _react2.default.createElement(
+                        "path",
+                        { d: "M36 18c0-9.94-8.06-18-18-18" },
+                        _react2.default.createElement("animateTransform", {
+                            attributeName: "transform",
+                            type: "rotate",
+                            from: "0 18 18",
+                            to: "360 18 18",
+                            dur: "1s",
+                            repeatCount: "indefinite" })
+                    )
+                )
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.puff = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.puff = puff;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function puff(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 44 44", xmlns: "http://www.w3.org/2000/svg", stroke: svg.color },
+            _react2.default.createElement(
+                "g",
+                { fill: "none", fillRule: "evenodd", strokeWidth: "2" },
+                _react2.default.createElement(
+                    "circle",
+                    { cx: "22", cy: "22", r: "1" },
+                    _react2.default.createElement("animate", { attributeName: "r",
+                        begin: "0s", dur: "1.8s",
+                        values: "1; 20",
+                        calcMode: "spline",
+                        keyTimes: "0; 1",
+                        keySplines: "0.165, 0.84, 0.44, 1",
+                        repeatCount: "indefinite" }),
+                    _react2.default.createElement("animate", { attributeName: "strokeOpacity",
+                        begin: "0s", dur: "1.8s",
+                        values: "1; 0",
+                        calcMode: "spline",
+                        keyTimes: "0; 1",
+                        keySplines: "0.3, 0.61, 0.355, 1",
+                        repeatCount: "indefinite" })
+                ),
+                _react2.default.createElement(
+                    "circle",
+                    { cx: "22", cy: "22", r: "1" },
+                    _react2.default.createElement("animate", { attributeName: "r",
+                        begin: "-0.9s", dur: "1.8s",
+                        values: "1; 20",
+                        calcMode: "spline",
+                        keyTimes: "0; 1",
+                        keySplines: "0.165, 0.84, 0.44, 1",
+                        repeatCount: "indefinite" }),
+                    _react2.default.createElement("animate", { attributeName: "strokeOpacity",
+                        begin: "-0.9s", dur: "1.8s",
+                        values: "1; 0",
+                        calcMode: "spline",
+                        keyTimes: "0; 1",
+                        keySplines: "0.3, 0.61, 0.355, 1",
+                        repeatCount: "indefinite" })
+                )
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.rings = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.rings = rings;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function rings(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 45 45", xmlns: "http://www.w3.org/2000/svg", stroke: svg.color },
+            _react2.default.createElement(
+                "g",
+                { fill: "none", fillRule: "evenodd", transform: "translate(1 1)", strokeWidth: "2" },
+                _react2.default.createElement(
+                    "circle",
+                    { cx: "22", cy: "22", r: "6", strokeOpacity: "0" },
+                    _react2.default.createElement("animate", { attributeName: "r",
+                        begin: "1.5s", dur: "3s",
+                        values: "6;22",
+                        calcMode: "linear",
+                        repeatCount: "indefinite" }),
+                    _react2.default.createElement("animate", { attributeName: "stroke-opacity",
+                        begin: "1.5s", dur: "3s",
+                        values: "1;0", calcMode: "linear",
+                        repeatCount: "indefinite" }),
+                    _react2.default.createElement("animate", { attributeName: "stroke-width",
+                        begin: "1.5s", dur: "3s",
+                        values: "2;0", calcMode: "linear",
+                        repeatCount: "indefinite" })
+                ),
+                _react2.default.createElement(
+                    "circle",
+                    { cx: "22", cy: "22", r: "6", strokeOpacity: "0" },
+                    _react2.default.createElement("animate", { attributeName: "r",
+                        begin: "3s", dur: "3s",
+                        values: "6;22",
+                        calcMode: "linear",
+                        repeatCount: "indefinite" }),
+                    _react2.default.createElement("animate", { attributeName: "strokeOpacity",
+                        begin: "3s", dur: "3s",
+                        values: "1;0", calcMode: "linear",
+                        repeatCount: "indefinite" }),
+                    _react2.default.createElement("animate", { attributeName: "strokeWidth",
+                        begin: "3s", dur: "3s",
+                        values: "2;0", calcMode: "linear",
+                        repeatCount: "indefinite" })
+                ),
+                _react2.default.createElement(
+                    "circle",
+                    { cx: "22", cy: "22", r: "8" },
+                    _react2.default.createElement("animate", { attributeName: "r",
+                        begin: "0s", dur: "1.5s",
+                        values: "6;1;2;3;4;5;6",
+                        calcMode: "linear",
+                        repeatCount: "indefinite" })
+                )
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.tailSpin = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.tailSpin = tailSpin;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function tailSpin(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 38 38", xmlns: "http://www.w3.org/2000/svg" },
+            _react2.default.createElement(
+                "defs",
+                null,
+                _react2.default.createElement(
+                    "linearGradient",
+                    { x1: "8.042%", y1: "0%", x2: "65.682%", y2: "23.865%", id: "a" },
+                    _react2.default.createElement("stop", { stopColor: svg.color, stopOpacity: "0", offset: "0%" }),
+                    _react2.default.createElement("stop", { stopColor: svg.color, stopOpacity: ".631", offset: "63.146%" }),
+                    _react2.default.createElement("stop", { stopColor: svg.color, offset: "100%" })
+                )
+            ),
+            _react2.default.createElement(
+                "g",
+                { fill: "none", fillRule: "evenodd" },
+                _react2.default.createElement(
+                    "g",
+                    { transform: "translate(1 1)" },
+                    _react2.default.createElement(
+                        "path",
+                        { d: "M36 18c0-9.94-8.06-18-18-18", id: "Oval-2", stroke: "url(#a)", strokeWidth: "2" },
+                        _react2.default.createElement("animateTransform", {
+                            attributeName: "transform",
+                            type: "rotate",
+                            from: "0 18 18",
+                            to: "360 18 18",
+                            dur: "0.9s",
+                            repeatCount: "indefinite" })
+                    ),
+                    _react2.default.createElement(
+                        "circle",
+                        { fill: "#fff", cx: "36", cy: "18", r: "1" },
+                        _react2.default.createElement("animateTransform", {
+                            attributeName: "transform",
+                            type: "rotate",
+                            from: "0 18 18",
+                            to: "360 18 18",
+                            dur: "0.9s",
+                            repeatCount: "indefinite" })
+                    )
+                )
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.threeDots = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.threeDots = threeDots;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function threeDots(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 120 30", xmlns: "http://www.w3.org/2000/svg", fill: svg.color },
+            _react2.default.createElement(
+                "circle",
+                { cx: "15", cy: "15", r: "15" },
+                _react2.default.createElement("animate", { attributeName: "r", from: "15", to: "15",
+                    begin: "0s", dur: "0.8s",
+                    values: "15;9;15", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "fillOpacity", from: "1", to: "1",
+                    begin: "0s", dur: "0.8s",
+                    values: "1;.5;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "60", cy: "15", r: "9", attributeName: "fillOpacity", from: "1", to: "0.3" },
+                _react2.default.createElement("animate", { attributeName: "r", from: "9", to: "9",
+                    begin: "0s", dur: "0.8s",
+                    values: "9;15;9", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "fillOpacity", from: "0.5", to: "0.5",
+                    begin: "0s", dur: "0.8s",
+                    values: ".5;1;.5", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "105", cy: "15", r: "15" },
+                _react2.default.createElement("animate", { attributeName: "r", from: "15", to: "15",
+                    begin: "0s", dur: "0.8s",
+                    values: "15;9;15", calcMode: "linear",
+                    repeatCount: "indefinite" }),
+                _react2.default.createElement("animate", { attributeName: "fillOpacity", from: "1", to: "1",
+                    begin: "0s", dur: "0.8s",
+                    values: "1;.5;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            )
+        );
+    }
+});
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [exports, __webpack_require__(2)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports !== "undefined") {
+        factory(exports, require("react"));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.react);
+        global.grid = mod.exports;
+    }
+})(this, function (exports, _react) {
+    "use strict";
+
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.grid = grid;
+
+    var _react2 = _interopRequireDefault(_react);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
+
+    function grid(svg) {
+        return _react2.default.createElement(
+            "svg",
+            { width: svg.width, height: svg.height, viewBox: "0 0 105 105", fill: svg.color },
+            _react2.default.createElement(
+                "circle",
+                { cx: "12.5", cy: "12.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fillOpacity",
+                    begin: "0s", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "12.5", cy: "52.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "100ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "52.5", cy: "12.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "300ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "52.5", cy: "52.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "600ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "92.5", cy: "12.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "800ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "92.5", cy: "52.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "400ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "12.5", cy: "92.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "700ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "52.5", cy: "92.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "500ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            ),
+            _react2.default.createElement(
+                "circle",
+                { cx: "92.5", cy: "92.5", r: "12.5" },
+                _react2.default.createElement("animate", { attributeName: "fill-opacity",
+                    begin: "200ms", dur: "1s",
+                    values: "1;.2;1", calcMode: "linear",
+                    repeatCount: "indefinite" })
+            )
+        );
+    }
+});
 
 /***/ })
 /******/ ]);

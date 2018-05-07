@@ -1,3 +1,8 @@
+.header {
+	font-size: 5rem;
+	padding-bottom: 2rem;
+}
+
 .input {
     width: 30rem;
     height: 2rem;
@@ -8,10 +13,40 @@
 .infoContainer {
     display: flex;
     justify-content: space-between;
+    padding-top: 2rem;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 1rem;
 }
 
 .button {
 	cursor: pointer;
-	border: 1px solid black;
-	padding: 1rem;
+    border: 1px solid black;
+    padding: 1rem;
+    height: 2rem;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    width: 4rem;
+    justify-content: center;
+}
+
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.subTitle {
+	font-size: 2rem;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.mapContainer {
+	height: 40rem;
+	width: 30.8125rem;
 }
